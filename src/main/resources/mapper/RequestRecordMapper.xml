@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.shopin.history.mapper.RequestRecordMapper">
+  <resultMap id="BaseResultMap" type="net.shopin.history.enitty.RequestRecord">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="table_name" jdbcType="VARCHAR" property="tableName" />
+    <result column="server_name" jdbcType="VARCHAR" property="serverName" />
+    <result column="opt_sql" jdbcType="VARCHAR" property="optSql" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `type`, `table_name`, `server_name`, opt_sql, create_time, update_time, `state`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from request_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from request_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="net.shopin.history.enitty.RequestRecord" useGeneratedKeys="true">
+    insert into request_record (`type`, `table_name`, `server_name`,
+      opt_sql, create_time)
+    values (#{type,jdbcType=VARCHAR}, #{tableName,jdbcType=VARCHAR}, #{serverName,jdbcType=VARCHAR},
+      #{optSql,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="net.shopin.history.enitty.RequestRecord" useGeneratedKeys="true">
+    insert into request_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="tableName != null">
+        `table_name`,
+      </if>
+      <if test="serverName != null">
+        `server_name`,
+      </if>
+      <if test="optSql != null">
+        opt_sql,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="optSql != null">
+        #{optSql,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.shopin.history.enitty.RequestRecord">
+    update request_record
+    <set>
+      <if test="type != null">
+        `type` = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="tableName != null">
+        `table_name` = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="serverName != null">
+        `server_name` = #{serverName,jdbcType=VARCHAR},
+      </if>
+      <if test="optSql != null">
+        opt_sql = #{optSql,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.shopin.history.enitty.RequestRecord">
+    update request_record
+    set `type` = #{type,jdbcType=VARCHAR},
+      `table_name` = #{tableName,jdbcType=VARCHAR},
+      `server_name` = #{serverName,jdbcType=VARCHAR},
+      opt_sql = #{optSql,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      `state` = #{state,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

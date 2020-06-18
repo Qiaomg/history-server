@@ -1,4 +1,4 @@
-package net.shopin.history.context;
+package net.shopin.history.common;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
@@ -31,5 +31,5 @@ public class HistoryServerContext {
      * key : 表名
      * val : 实体类
      */
-    public static Map<String,Class> tableMap = new HashMap<>();
+    public static Map<String,Object> tableMap = new HashMap<>();
 }

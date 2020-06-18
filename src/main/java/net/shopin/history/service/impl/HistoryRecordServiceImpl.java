@@ -6,6 +6,8 @@ import net.shopin.history.service.HistoryRecordService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @title: HistoryRecordServiceImpl
@@ -26,7 +28,11 @@ public class HistoryRecordServiceImpl implements HistoryRecordService {
     }
 
     @Override
-    public Object select(Long id, Class clazz) {
-        return historyMapper.select(id,clazz);
+    public List<Map<Object,Object>> generalSelect(String tableName) {
+        return historyMapper.generalSelect(tableName);
     }
+
+    @Override
+    public List<String> showTables(){ return historyMapper.showTables();}
+
 }

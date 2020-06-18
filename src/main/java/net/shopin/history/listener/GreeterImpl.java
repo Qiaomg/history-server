@@ -1,4 +1,4 @@
-package net.shopin.history.grpc;
+package net.shopin.history.listener;
 
 import io.grpc.history.GreeterGrpc;
 import io.grpc.history.RequestOperateSql;
@@ -6,13 +6,17 @@ import io.grpc.history.ResponseOperateSql;
 import io.grpc.stub.StreamObserver;
 import lombok.NonNull;
 import net.shopin.history.enitty.GrpcMsg;
+import net.shopin.history.enitty.RequestRecord;
+import net.shopin.history.mapper.RequestRecordMapper;
 import net.shopin.history.service.impl.QueueEventListener;
-import net.shopin.history.utils.GsonUtil;
+import net.shopin.history.common.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static net.shopin.history.context.HistoryServerContext.executorService;
-import static net.shopin.history.context.HistoryServerContext.tableMap;
+import java.util.Date;
+
+import static net.shopin.history.common.HistoryServerContext.executorService;
+import static net.shopin.history.common.HistoryServerContext.tableMap;
 import static net.shopin.history.enitty.GrpcTypeEnum.*;
 
 /**
@@ -26,6 +30,8 @@ import static net.shopin.history.enitty.GrpcTypeEnum.*;
 public class GreeterImpl extends GreeterGrpc.GreeterImplBase {
     @Autowired
     private QueueEventListener listener;
+    @Autowired
+    private RequestRecordMapper requestRecordMapper;
 
     /**
      * 接收传递过来的消息放入队列
@@ -40,7 +46,7 @@ public class GreeterImpl extends GreeterGrpc.GreeterImplBase {
         GrpcMsg msg = GsonUtil.getClass(req.getName(), GrpcMsg.class);
         switch (msg.getType()) {
             case CREATE:
-                reply = toCreateEvent(msg);
+//                reply = toCreateEvent(msg);
                 break;
             case INSERT:
                 reply = toInsertEvent(msg);
@@ -60,7 +66,13 @@ public class GreeterImpl extends GreeterGrpc.GreeterImplBase {
     private ResponseOperateSql toInsertEvent(GrpcMsg msg) {
         @NonNull String tableName = msg.getTableName();
         if (!tableMap.containsKey(tableName)) {
-            //TODO 持久化
+            RequestRecord rr = new RequestRecord();
+            rr.setCreateTime(new Date());
+            rr.setType(msg.getType().toString());
+            rr.setTableName(msg.getTableName());
+            rr.setServerName(msg.getServerName());
+            rr.setOptSql(msg.getOptSql());
+            requestRecordMapper.insert(rr);
             return ResponseOperateSql.newBuilder().setMessage(CREATE.toString()).build();
         }
         executorService.submit(() -> {

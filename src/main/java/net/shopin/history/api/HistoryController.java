@@ -1,10 +1,13 @@
 package net.shopin.history.api;
 
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import net.shopin.history.enitty.ActivityHistory;
 import net.shopin.history.service.HistoryRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import static net.shopin.history.common.HistoryServerContext.tableMap;
 
 /**
  * @title: HistoryController
@@ -20,9 +23,16 @@ public class HistoryController {
     @Autowired
     private HistoryRecordService historyService;
 
-    @GetMapping("/test")
-    public Object edit() {
-        log.info("test");
-        return historyService.select(469L, ActivityHistory.class);
+    @GetMapping("/tables")
+    public Object tables() {
+        return tableMap;
+    }
+
+    @GetMapping("/table/{tableName}")
+    public Object loadTableByName(@PathVariable String tableName) {
+        if(StringUtils.isEmpty(tableName)){
+            return "参数空";
+        }
+        return historyService.generalSelect(tableName);
     }
 }

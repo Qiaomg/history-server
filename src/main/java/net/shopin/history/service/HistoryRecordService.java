@@ -1,5 +1,8 @@
 package net.shopin.history.service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @title: HistoryRecordService
  * @description: 定义操作接口
@@ -17,10 +20,15 @@ public interface HistoryRecordService {
 
     /**
      * 查询demo
-     * @param id
-     * @param clazz
+     * @param tableName
      * @return
      */
-    Object select(Long id,Class clazz);
+    List<Map<Object,Object>> generalSelect(String tableName);
+
+    /**
+     * showTables
+     * @return
+     */
+    List<String> showTables();
 
 }

@@ -1,4 +1,4 @@
-package net.shopin.history.utils;
+package net.shopin.history.common;
 
 import com.google.gson.Gson;
 

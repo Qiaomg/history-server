@@ -1,14 +1,16 @@
-package net.shopin.history.grpc;
+package net.shopin.history.listener;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import net.shopin.history.context.HistoryServerContext;
+import net.shopin.history.common.HistoryServerContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.logging.Logger;
+
 /**
  * @title: GrpcServer
  * @description: rpc 消息传递服务

@@ -1,20 +1,19 @@
 package net.shopin.history.enitty;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * request_record
  * @author
  */
-public class RequestRecord implements Serializable {
+public class RequestRecord{
     /**
      * 自增主键
      */
     private Long id;
 
     /**
-     * 操作类型  OK , FAIL,CREATE,
+     * 操作类型  OK , FAIL,REFRESH,
      */
     private String type;
 
@@ -47,8 +46,6 @@ public class RequestRecord implements Serializable {
      * 状态 0 无效 1 有效
      */
     private Integer state;
-
-    private static final long serialVersionUID = 1L;
 
     public Long getId() {
         return id;
@@ -112,5 +109,19 @@ public class RequestRecord implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestRecord{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", tableName='" + tableName + '\'' +
+                ", serverName='" + serverName + '\'' +
+                ", optSql='" + optSql + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", state=" + state +
+                '}';
     }
 }

@@ -1,8 +1,7 @@
 package net.shopin.history.api;
 
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import net.shopin.history.service.HistoryRecordService;
+import net.shopin.history.service.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ import static net.shopin.history.common.HistoryServerContext.tableMap;
 public class HistoryController {
 
     @Autowired
-    private HistoryRecordService historyService;
+    private IHistoryService historyService;
 
     @GetMapping("/tables")
     public Object tables() {

@@ -24,7 +24,7 @@ public class GrpcServer  implements ApplicationRunner {
     private Server server;
 
     @Autowired
-    private GreeterImpl greeter;
+    private GrpcListener greeter;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

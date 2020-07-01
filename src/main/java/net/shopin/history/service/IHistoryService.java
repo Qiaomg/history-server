@@ -4,19 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @title: HistoryRecordService
+ * @title: IHistoryService
  * @description: 定义操作接口
  * @author: qmg
  * @date: 2020/6/11 16:25
  * @version: V1.0
  */
-public interface HistoryRecordService {
-
-    /**
-     * 执行sql
-     * @param str
-     */
-    void optSql(String str);
+public interface IHistoryService {
 
     /**
      * 查询demo

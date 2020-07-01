@@ -1,7 +1,7 @@
 package net.shopin.history.listener;
 
 import lombok.extern.slf4j.Slf4j;
-import net.shopin.history.service.HistoryRecordService;
+import net.shopin.history.service.IHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -23,7 +23,7 @@ import static net.shopin.history.common.HistoryServerContext.tableMap;
 public class StartListener implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
-    private HistoryRecordService recordService;
+    private IHistoryService recordService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
